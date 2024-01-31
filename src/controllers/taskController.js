@@ -1,37 +1,29 @@
+import Task from '../models/task.js';
 
 class TaskController {
-    constructor(){
-        this.tasks = [];
-    }
+  // Create
+  async createTask(taskData) {
+    const task = await Task.create(taskData);
+    return { message: "Task added successfully!", task };
+  }
 
-     // Create
-    createTask(req, res) {
-        this.tasks.push(req.body);
-        return res.json({ message: "Task added successfully!" });
-    }
+  // Read
+  async getAllTasks() {
+    const tasks = await Task.findAll();
+    return tasks;
+  }
 
-    // Read
-    getAllTasks(req, res) {
-        return res.json(this.tasks);
-    }
+  // Update
+  async updateTask(id, updatedData) {
+    await Task.update(updatedData, { where: { id } });
+    return { message: "Task updated successfully!" };
+  }
 
-    // Update - simulando por enquanto
-    updateTask(req, res) {
-        const task = this.tasks.find(x => x.id == req.params.id);
-        const taskId = this.tasks.indexOf(task);
-        this.tasks.splice(taskId, 0 , req.body)
-        return res.json({ message: "Task updated successfully!" });
-    }
-
-    // Delete - simulando por enquanto
-    deleteTask(req, res) {
-        const task = this.tasks.find(x => x.id == req.params.id);
-        const taskId = this.tasks.indexOf(task);             //EXCLUINDO RECEITA
-        this.tasks.splice(taskId, 1);
-        return res.json({ message: "Task deleted successfully!" });
-    }
-
+  // Delete
+  async deleteTask(id) {
+    await Task.destroy({ where: { id } });
+    return { message: "Task deleted successfully!" };
+  }
 }
-
 
 export default new TaskController();
