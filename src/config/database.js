@@ -1,8 +1,8 @@
 import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize('task', 'vitor', '12345678', {
+const sequelize = new Sequelize('tasks', 'root', 'vitormuniz', {
   host: 'localhost',
-  dialect: 'postgres' // especificando o banco PostgreSQL
+  dialect: 'mysql' // especificando o banco PostgreSQL
 });
 
 export default sequelize;

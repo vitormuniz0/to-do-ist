@@ -3,6 +3,9 @@ import Task from '../models/task.js';
 class TaskController {
   // Create
   async createTask(taskData) {
+    if(!taskData || !taskData.nome){
+      throw new Error('O campo "nome" é obrigatório.');
+    }
     const task = await Task.create(taskData);
     return { message: "Task added successfully!", task };
   }
@@ -10,6 +13,15 @@ class TaskController {
   // Read
   async getAllTasks() {
     const tasks = await Task.findAll();
+    return tasks;
+  }
+
+  async getAllTasksId(id) {
+    const tasks = await Task.findByPk(id);
+    if(!Task){
+      throw new Error("Tarefa não encontrada.");
+    }
+    
     return tasks;
   }
 

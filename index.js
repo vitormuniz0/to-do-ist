@@ -5,6 +5,7 @@ import taskRoutes from "./src/routes/taskRoutes.js";
 const app = express();
 const PORT = 3000;
 
+
 // Inicializando Sequelize
 (async () => {
   try {
